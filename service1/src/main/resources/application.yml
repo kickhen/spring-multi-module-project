@@ -1,0 +1,19 @@
+server:
+  port: 8081
+spring:
+  datasource:
+    postgres:
+      driver-class-name: org.postgresql.Driver
+      url: jdbc:postgresql://192.168.11.38:5432/test
+      username: tmax
+      password: 1234
+#  jta:
+#    atomikos:
+#      datasource:
+#        postgres:
+#          unique-resource-name: postgresDS
+#          xa-data-source-classname: org.postgresql.xa.PGXADataSource
+#          xa-properties:
+#            user: tmax
+#            password: 1234
+#            url: jdbc:postgresql://192.168.11.38:5432/test
