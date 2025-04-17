@@ -15,19 +15,14 @@ public class Service1 {
     private final EmpMapper empMapper;
     private final RestTemplate restTemplate;
 
-    @Transactional
+    @Transactional(transactionManager = "jtaTransactionManager")
     public void insertEmp(ServiceInputDto dto) {
         empMapper.insertEmp(dto.getEmpDto());
         dto.getEmpDto().setEmpno(0);
-        try {
-            ResponseEntity<String> response = restTemplate.postForEntity("http://localhost:8082/insert", dto, String.class);
-            System.out.println(response.getBody());
-        } catch (Exception e) {
-            e.printStackTrace();
+        ResponseEntity<String> response = restTemplate.postForEntity("http://192.168.12.45:8082/insert", dto, String.class);
+        System.out.println(response.getBody());
+        if (dto.isTriggerError()) {
+            throw new RuntimeException("trigger error");
         }
-
-//        if (dto.isTriggerError()) {
-//            throw new RuntimeException("trigger error");
-//        }
     }
 }

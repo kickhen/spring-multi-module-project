@@ -2,6 +2,7 @@ package com.example.config;
 
 import com.atomikos.remoting.spring.rest.TransactionAwareRestClientInterceptor;
 import com.atomikos.remoting.spring.rest.TransactionAwareRestContainerFilter;
+import com.example.common.filter.CustomTransactionFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,6 +29,15 @@ public class RestTemplateConfig {
         reg.setFilter(new TransactionAwareRestContainerFilter());
         reg.addUrlPatterns("/*"); // 전체 요청에 대해 적용
         reg.setOrder(1); // 필터 실행 순서
+        return reg;
+    }
+
+    @Bean
+    public FilterRegistrationBean<CustomTransactionFilter> customTransactionFilter() {
+        FilterRegistrationBean<CustomTransactionFilter> reg = new FilterRegistrationBean<>();
+        reg.setFilter(new CustomTransactionFilter());
+        reg.addUrlPatterns("/*"); // 전체 요청에 대해 적용
+        reg.setOrder(2); // 필터 실행 순서
         return reg;
     }
 

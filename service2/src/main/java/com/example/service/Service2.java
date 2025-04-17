@@ -12,11 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class Service2 {
     private final EmpMapper empMapper;
 
-    @Transactional
+    @Transactional(transactionManager = "jtaTransactionManager")
     public void insertEmp(ServiceInputDto dto) {
         empMapper.insertEmp(dto.getEmpDto());
-        if (dto.isTriggerError()) {
-            throw new RuntimeException("Trigger error");
-        }
     }
 }
