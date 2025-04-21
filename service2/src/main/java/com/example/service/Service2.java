@@ -15,5 +15,8 @@ public class Service2 {
     @Transactional(transactionManager = "jtaTransactionManager")
     public void insertEmp(ServiceInputDto dto) {
         empMapper.insertEmp(dto.getEmpDto());
+        if (dto.isTriggerError()) {
+            throw new RuntimeException("trigger error");
+        }
     }
 }

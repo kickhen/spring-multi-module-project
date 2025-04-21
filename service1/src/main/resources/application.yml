@@ -7,6 +7,8 @@ spring:
       url: jdbc:postgresql://192.168.11.38:5432/test
       username: tmax
       password: 1234
+  jersey:
+    type: filter
 #  jta:
 #    atomikos:
 #      datasource:

@@ -12,10 +12,7 @@ public class CustomTransactionFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        try {
-            filterChain.doFilter(request, response);
-        } finally {
-            response.setStatus(response.getStatus());
-        }
+        CustomTransactionResponseWrapper wrapper = new CustomTransactionResponseWrapper((HttpServletResponse) response);
+        filterChain.doFilter(request, wrapper);
     }
 }
